@@ -1,58 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void validTMT(string s)
-{
-    int t = 0, m = 0;
-    int count = 0;
-    int n = s.size() - 1;
-    // counting the number of ts and ms
-    for (auto x : s)
-    {
-        if (x == 'T')
-            t++;
-        else
-            m++;
-    }
-
-    // t should be twice than m
-    if (t != m * 2)
-    {
-        cout << "NO" << endl;
-        return;
-    }
-
-    // counting from beginning, if at any point count of m is bigger than t, we print NO
-    for (auto x : s)
-    {
-        if (x == 'T')
-            count++;
-        else
-            count--;
-        if (count < 0)
-        {
-            cout << "NO" << endl;
-            return;
-        }
-    }
-
-    // now checking for reverse of string too
-    count = 0;
-    for (int i = n; i >= 0; i--)
-    {
-        if (s[i] == 'T')
-            count++;
-        else
-            count--;
-        if (count < 0)
-        {
-            cout << "NO" << endl;
-        }
-    }
-    cout << "YES" << endl;
-    return;
-}
-
 int main()
 {
     int t;
@@ -63,7 +11,62 @@ int main()
         cin >> n;
         string s;
         cin >> s;
-        validTMT(s);
+        int count = 0;
+        int t = 0, m = 0;
+
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (s[i] == 'T')
+                t++;
+            else
+                m++;
+        }
+
+        if (t != 2 * m)
+        {
+            cout << "NO" << endl;
+        }
+        else
+        {
+            int flag = 0;
+            for (int i = 0; i < s.size(); i++)
+            {
+                if (s[i] == 'T')
+                    count++;
+                else
+                    count--;
+                if (count < 0)
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag)
+                cout << "NO" << endl;
+            else
+            {
+                reverse(s.begin(), s.end());
+                flag = 0;
+                count = 0;
+                for (int i = 0; i < s.size(); i++)
+                {
+                    if (s[i] == 'T')
+                        count++;
+                    else
+                        count--;
+                    if (count < 0)
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+
+                if (flag)
+                    cout << "NO" << endl;
+                else
+                    cout << "YES" << endl;
+            }
+        }
     }
     return 0;
 }
