@@ -40,24 +40,19 @@ int32_t main()
         {
             cin >> arr[i];
         }
+        int index = 0;
 
-        int ending_index = n - 1;
-        int starting_index = 0;
-        int counter = 0;
-        while (counter < k && starting_index < ending_index)
+        while (index < n - 1 && k > 0)
         {
-            if (arr[starting_index] == 0)
-                starting_index++;
-            if (arr[ending_index] == 9)
-                ending_index--;
-
-            if (arr[starting_index] == 0 || arr[ending_index] == 9)
-                continue;
+            if (arr[index] > 0)
+            {
+                k--;
+                arr[index]--;
+                arr[n - 1]++;
+            }
             else
             {
-                counter++;
-                arr[starting_index]--;
-                arr[ending_index]++;
+                index++;
             }
         }
         display(arr);
